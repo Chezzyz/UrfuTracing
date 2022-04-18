@@ -1,16 +1,13 @@
-package com.urfu.tracing.model.tracing;
+package com.urfu.tracing.model.tracingPage;
 
 import lombok.NonNull;
 import lombok.Value;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.UUID;
 
 @Value
 public class Office {
-    @NonNull
-    UUID uuid;
 
     @NonNull
     String address;

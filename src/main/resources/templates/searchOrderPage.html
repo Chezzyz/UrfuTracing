@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="rus" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
-
+<label>
+    <input id="order-number-input" type="text"> Номер заказа
+</label>
+<label>
+    <input id="phone-number-input" type="text"> Последние 4 цифры телефона
+</label>
+<script type="text/javascript">
+    function redirect(){
+        let order = document.getElementById('order-number-input').value;
+        let phone = document.getElementById('phone-number-input').value;
+        window.location.href = `http://localhost:8080/tracing/trace?orderNumber=${order}&phone=${phone}`;
+    }
+</script>
+<button onclick="redirect()">Найти</button>
 </body>
 </html>

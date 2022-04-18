@@ -1,23 +1,19 @@
-package com.urfu.tracing.model.tracing;
+package com.urfu.tracing.model.tracingPage;
 
 import lombok.NonNull;
 import lombok.Value;
 import org.springframework.lang.Nullable;
 
-import java.util.UUID;
-
 @Value
 public class Contractor {
-    @NonNull
-    UUID uuid;
-    
+
     @Nullable
     String firstName;
-    
+
     @Nullable
     String secondName;
-    
+
     @NonNull
-    String numberPhone;
-    
+    String phoneNumber;
+
 }

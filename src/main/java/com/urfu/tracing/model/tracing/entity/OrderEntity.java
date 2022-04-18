@@ -1,13 +1,10 @@
-package com.urfu.tracing.model.tracing;
+package com.urfu.tracing.model.tracing.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
@@ -16,19 +13,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
-import java.util.Objects;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
 @Entity
 @Table(name = "orders")
+@Getter
+@ToString
+@AllArgsConstructor
 @NoArgsConstructor
 public class OrderEntity {
-    @NonNull
+
     @Id
+    private Integer id;
+
+    @NonNull
     private UUID uuid;
 
     @NonNull
@@ -54,27 +52,11 @@ public class OrderEntity {
 
     @NotBlank
     @NonNull
-    @Column(name = "static")
+    @Column(name = "status")
     private String status;
 
     @NonNull
     @Column(name = "cost")
     private Double cost;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-            return false;
-        }
-        OrderEntity that = (OrderEntity) o;
-        return uuid != null && Objects.equals(uuid, that.uuid);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
