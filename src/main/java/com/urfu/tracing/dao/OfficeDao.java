@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
 
+import javax.persistence.metamodel.BasicType;
 import javax.transaction.Transactional;
 import java.util.UUID;
 
@@ -17,7 +18,12 @@ public class OfficeDao {
 
     private final OfficeRepository repository;
 
-    public OfficeEntity findOfficeByUuid(UUID uuid){
+    public void saveOffice(OfficeEntity officeEntity) {
+        repository.saveOffice(officeEntity.getUuid(), officeEntity.getAddress(), officeEntity.getWorkTimeBegin(),
+                officeEntity.getWorkTimeEnd(), officeEntity.getWorkDayBegin(), officeEntity.getWorkDayEnd());
+    }
+
+    public OfficeEntity findOfficeByUuid(UUID uuid) {
         return repository.findOfficeByUuid(uuid);
     }
 

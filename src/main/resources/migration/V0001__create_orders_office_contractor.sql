@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS orders;
-
 CREATE TABLE orders
 (
     id               serial      NOT NULL,
@@ -19,26 +18,26 @@ CREATE TABLE orders
 CREATE UNIQUE INDEX udx_orders_id ON orders USING btree (id);
 CREATE UNIQUE INDEX udx_orders_uuid ON orders USING btree (uuid);
 
-DROP TABLE IF EXISTS office;
-CREATE TABLE office
+DROP TABLE IF EXISTS offices;
+CREATE TABLE offices
 (
     id               serial      NOT NULL,
     uuid             uuid        NOT NULL,
     address          text        NOT NULL,
     work_time_begin  time        NOT NULL,
     work_time_end    time        NOT NULL,
-    work_day_begin   iso_weekday NOT NULL,
-    work_day_end     iso_weekday NOT NULL,
+    work_day_begin   text        NOT NULL,
+    work_day_end     text        NOT NULL,
     create_timestamp timestamptz NOT NULL DEFAULT now(),
     update_timestamp timestamptz NOT NULL DEFAULT now(),
     PRIMARY KEY (id),
     UNIQUE (id)
 );
-CREATE UNIQUE INDEX udx_office_id ON office USING btree (id);
-CREATE UNIQUE INDEX udx_office_uuid ON office USING btree (uuid);
+CREATE UNIQUE INDEX udx_office_id ON offices USING btree (id);
+CREATE UNIQUE INDEX udx_office_uuid ON offices USING btree (uuid);
 
-DROP TABLE IF EXISTS contractor;
-CREATE TABLE contractor
+DROP TABLE IF EXISTS contractors;
+CREATE TABLE contractors
 (
     id               serial      NOT NULL,
     uuid             uuid        NOT NULL,
@@ -50,5 +49,5 @@ CREATE TABLE contractor
     PRIMARY KEY (id),
     UNIQUE (id)
 );
-CREATE UNIQUE INDEX udx_contractor_id ON contractor USING btree (id);
-CREATE UNIQUE INDEX udx_contractor_uuid ON contractor USING btree (uuid);
+CREATE UNIQUE INDEX udx_contractor_id ON contractors USING btree (id);
+CREATE UNIQUE INDEX udx_contractor_uuid ON contractors USING btree (uuid);

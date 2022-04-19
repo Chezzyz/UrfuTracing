@@ -9,16 +9,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "office")
+@Table(name = "offices")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfficeEntity {
+
     @Id
     private Integer id;
 
@@ -40,10 +40,10 @@ public class OfficeEntity {
 
     @NonNull
     @Column(name = "work_day_begin")
-    private DayOfWeek workDayBegin;
+    private String workDayBegin;
 
     @NonNull
     @Column(name = "work_day_end")
-    private DayOfWeek workDayEnd;
+    private String workDayEnd;
 
 }

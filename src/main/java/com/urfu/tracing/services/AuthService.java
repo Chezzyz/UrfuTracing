@@ -15,15 +15,17 @@ public class AuthService {
     @Value("${auth.last-digits.count}")
     private int countOfLastDigitsForAuth;
 
-    public boolean isAuthorized(@NonNull OrderEntity orderEntity, String phoneNumberDigits){
+    public boolean isAuthorized(@NonNull OrderEntity orderEntity, String phoneNumberDigits) {
         String senderPhone = contractorService.findContractorPhoneNumber(orderEntity.getSenderUuid());
         String receiverPhone = contractorService.findContractorPhoneNumber(orderEntity.getReceiverUuid());
 
-        return getLastDigitsOfNumber(senderPhone, countOfLastDigitsForAuth).equals(phoneNumberDigits)
-                || getLastDigitsOfNumber(receiverPhone, countOfLastDigitsForAuth).equals(phoneNumberDigits);
+        return (senderPhone != null && receiverPhone != null)
+                && (getLastDigitsOfNumber(senderPhone, countOfLastDigitsForAuth).equals(phoneNumberDigits)
+                || getLastDigitsOfNumber(receiverPhone, countOfLastDigitsForAuth).equals(phoneNumberDigits));
     }
 
-    private String getLastDigitsOfNumber(String str, int digitsCount){
-        return str.substring(Math.max(str.length() - digitsCount - 1, 0));
+    private String getLastDigitsOfNumber(String str, int digitsCount) {
+        return str.substring(Math.max(str.length() - digitsCount, 0));
     }
+
 }

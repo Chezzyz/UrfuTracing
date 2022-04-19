@@ -22,8 +22,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
                     "office_uuid=:officeUuid, description = :description, status = :status, cost = :cost, " +
                     "update_timestamp = now()",
             nativeQuery = true)
-    void saveOrder(
-            @Param("uuid") UUID uuid,
+    void saveOrder(@Param("uuid") UUID uuid,
             @Param("orderNumber") Integer orderNumber,
             @Param("senderUuid") UUID senderUuid,
             @Param("receiverUuid") UUID receiverUuid,

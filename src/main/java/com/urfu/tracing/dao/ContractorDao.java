@@ -15,13 +15,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ContractorDao {
 
-    ContractorRepository repository;
+    private final ContractorRepository repository;
 
-    public ContractorEntity findContractorByUuid(UUID uuid){
+    public void saveContractor(UUID uuid, String firstName, String secondName, String phoneNumber) {
+        repository.saveContractor(uuid, firstName, secondName, phoneNumber);
+    }
+
+    public ContractorEntity findContractorByUuid(UUID uuid) {
         return repository.findContractorByUuid(uuid);
     }
 
-    public String findContractorPhoneNumber(UUID uuid){
+    public String findContractorPhoneNumber(UUID uuid) {
         return repository.findContractorPhoneNumber(uuid);
     }
 }

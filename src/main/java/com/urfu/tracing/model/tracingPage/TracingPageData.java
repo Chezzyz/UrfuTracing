@@ -2,6 +2,7 @@ package com.urfu.tracing.model.tracingPage;
 
 import lombok.NonNull;
 import lombok.Value;
+import org.springframework.lang.Nullable;
 
 @Value
 public class TracingPageData {
@@ -12,10 +13,10 @@ public class TracingPageData {
     @NonNull
     Office office;
 
-    @NonNull
+    @Nullable
     Contractor receiver;
 
-    @NonNull
+    @Nullable
     Contractor sender;
 
 }

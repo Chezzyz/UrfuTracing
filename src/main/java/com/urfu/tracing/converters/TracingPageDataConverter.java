@@ -9,6 +9,8 @@ import com.urfu.tracing.model.tracingPage.Order;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
+import java.time.DayOfWeek;
+
 @Component
 public class TracingPageDataConverter {
 
@@ -25,8 +27,8 @@ public class TracingPageDataConverter {
         return new Office(entity.getAddress(),
                 entity.getWorkTimeBegin(),
                 entity.getWorkTimeEnd(),
-                entity.getWorkDayBegin(),
-                entity.getWorkDayEnd());
+                DayOfWeek.valueOf(entity.getWorkDayBegin()),
+                DayOfWeek.valueOf(entity.getWorkDayEnd()));
     }
 
     @NonNull

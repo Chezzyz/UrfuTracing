@@ -2,7 +2,9 @@ package com.urfu.tracing.services;
 
 import com.urfu.tracing.dao.ContractorDao;
 import com.urfu.tracing.model.tracing.entity.ContractorEntity;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -11,13 +13,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ContractorService {
 
-    ContractorDao dao;
+    private final ContractorDao dao;
 
-    public ContractorEntity findContractorByUuid(UUID uuid){
+    public void saveContractor(@NonNull ContractorEntity contractorEntity) {
+        dao.saveContractor(contractorEntity.getUuid(), contractorEntity.getFirstName(),
+                contractorEntity.getSecondName(), contractorEntity.getNumberPhone());
+    }
+
+    @Nullable
+    public ContractorEntity findContractorByUuid(@NonNull UUID uuid) {
         return dao.findContractorByUuid(uuid);
     }
 
-    public String findContractorPhoneNumber(UUID uuid){
+    @Nullable
+    public String findContractorPhoneNumber(@NonNull UUID uuid) {
         return dao.findContractorPhoneNumber(uuid);
     }
 
