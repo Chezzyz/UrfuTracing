@@ -3,22 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        function redirect(){
+            let order = document.getElementById('order-number-input').value;
+            let phone = document.getElementById('phone-number-input').value;
+            window.location.href = `http://localhost:8080/tracing/trace?orderNumber=${order}&phone=${phone}`;
+        }
+    </script>
+    <style>
+        html, body{
+            font-family: 'Roboto', sans-serif;
+        }
 
+        section{
+            max-width: 100%;
+            min-width: 50vw;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #order-number-input{
+            width: 100%;
+            height: 35px;
+            font-size: 30px;
+        }
+
+        #phone-number-input{
+            width: 100%;
+            height: 35px;
+            font-size: 25px;
+        }
+
+        #phone-number-input::placeholder{
+            font-size: 12px;
+            text-overflow: ellipsis;
+        }
+
+        #trace-button{
+            width: 15%;
+            height: 30px;
+            margin-left: 10px;
+            padding: 4px 6px;
+        }
+
+        .block{
+            padding: 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 10px #c2c2c2;
+            width: 40vw;
+        }
+    </style>
 </head>
 <body>
-<label>
-    <input id="order-number-input" type="text"> Номер заказа
-</label>
-<label>
-    <input id="phone-number-input" type="text"> Последние 4 цифры телефона
-</label>
-<script type="text/javascript">
-    function redirect(){
-        let order = document.getElementById('order-number-input').value;
-        let phone = document.getElementById('phone-number-input').value;
-        window.location.href = `http://localhost:8080/tracing/trace?orderNumber=${order}&phone=${phone}`;
-    }
-</script>
-<button onclick="redirect()">Найти</button>
+<section>
+    <div class="block">
+        <label style="width: 50%;">
+            <input id="order-number-input" placeholder="Номер Заказа" type="text">
+        </label>
+        <label style="width: 25%;">
+            <input id="phone-number-input" type="text" placeholder="Последние 4 цифры телефона">
+        </label>
+        <button id="trace-button" onclick="redirect()">Отследить</button>
+    </div>
+</section>
 </body>
 </html>

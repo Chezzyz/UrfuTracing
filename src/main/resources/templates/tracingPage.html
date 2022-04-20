@@ -1,10 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="rus" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Tracing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+        html, body{
+            font-family: 'Roboto', sans-serif;
+        }
+
+        section{
+            max-width: 100%;
+            min-width: 70vw;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: start;
+            align-items: center;
+        }
+
+        #order-number-title{
+            font-size: 50px;
+            font-weight: 600;
+        }
+
+        .block{
+            padding: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-radius: 15px;
+            box-shadow: 0 5px 10px #c2c2c2;
+            min-width: 40vw;
+        }
+
+        .data-block{
+            border-radius: 15px;
+            border: 3px solid #767676;
+            padding: 15px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .data-block-title{
+            font-size: 35px;
+            font-weight: 500;
+            color: #4c4c4c;
+            text-align: center;
+            text-decoration: underline;
+            margin-bottom: 10px;
+        }
+
+        .field-group{
+            margin-bottom: 20px;
+        }
+
+        .field-label{
+            font-size: 30px;
+            font-weight: 500;
+            color: #878787;
+        }
+
+        .field-value{
+            font-size: 20px;
+            font-weight: 400;
+            text-align: start;
+        }
+    </style>
 </head>
 <body>
-<h1>Tracing</h1>
+<section>
+    <h1 id="order-number-title" th:text="|Информация о заказе №${order.orderNumber}|">Информация о заказе</h1>
+    <div class="block">
+        <div class="data-block">
+            <div class="data-block-title">Заказ</div>
+            <div class="field-group">
+                <label class="field-label">Номер заказа</label>
+                <div class="field-value" th:text="${order.orderNumber}">Номер заказа</div>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Статус</label>
+                <div class="field-value" th:text="${@orderStatusFormatter.getRusStatus(order.status)}">Статус доставки</div>
+            </div>
+            <div class="field-group" th:if="${order.description}">
+                <label class="field-label">Описание</label>
+                <div class="field-value" th:text="${order.description}">Описание заказа</div>
+            </div>
+            <div class="field-group" style="margin-bottom: 0">
+                <label class="field-label">Стоимость</label>
+                <div class="field-value" th:text="${order.cost}">Стоимость доставки</div>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: space-between">
+            <div style="display: flex; flex-direction: row;">
+                <div class="data-block">
+                    <div class="data-block-title">Отправитель</div>
+                    <div class="field-group" style="margin-bottom: 0">
+                        <label class="field-label" th:if="${sender.secondName} or ${sender.firstName}"
+                               th:text="|${sender.secondName} ${sender.firstName}|">Имя Отправителя</label>
+                        <div class="field-value" th:text="${sender.phoneNumber}">Телефон Отправителя</div>
+                    </div>
+                </div>
+                <div class="data-block">
+                    <div class="data-block-title">Получатель</div>
+                    <div class="field-group" style="margin-bottom: 0" >
+                        <label class="field-label" th:if="${receiver.secondName} or ${receiver.firstName}"
+                               th:text="|${receiver.secondName} ${receiver.firstName}|">Имя Получателя</label>
+                        <div class="field-value" th:text="${receiver.phoneNumber}">Телефон Получателя</div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-block">
+                <div class="data-block-title">Пункт выдачи</div>
+                <div style="display:flex; justify-content: space-between; flex-direction: row;">
+                    <div class="field-group" style="margin-bottom: 0">
+                        <label class="field-label">Адрес</label>
+                        <div class="field-value" th:text="${office.address}">Адрес офиса</div>
+                    </div>
+                    <div class="field-group" style="display:flex; flex-direction: column; align-items: flex-end; margin-bottom: 0">
+                        <label class="field-label">Расписание</label>
+                        <div class="field-value"
+                             th:text="|${@dayOfWeekFormatter.getRusDay(office.workDayBegin)} - ${@dayOfWeekFormatter.getRusDay(office.workDayEnd)} c ${office.workTimeBegin} до ${office.workTimeEnd}|">
+                            Расписание Офиса</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

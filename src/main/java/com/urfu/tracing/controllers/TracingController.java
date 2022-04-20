@@ -17,11 +17,12 @@ import javax.validation.constraints.Positive;
 @Controller
 @Validated
 @RequiredArgsConstructor
+@RequestMapping("/tracing")
 public class TracingController {
 
     private final TracingPageService tracingPageService;
 
-    @RequestMapping(value = "/tracing/trace", method = RequestMethod.GET)
+    @RequestMapping(value = "/trace", method = RequestMethod.GET)
     public String getTracingPage(@RequestParam("orderNumber") @Positive Integer orderNumber,
             @RequestParam("phone") @NotBlank String phoneNumberDigits,
             ModelMap modelMap) {
