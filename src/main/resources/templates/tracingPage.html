@@ -2,7 +2,7 @@
 <html lang="rus" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Tracing</title>
+    <title>Информация о заказе</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
 <section>
     <h1 id="order-number-title" th:text="|Информация о заказе №${order.orderNumber}|">Информация о заказе</h1>
     <div class="block">
-        <div class="data-block">
+        <div class="data-block" style="min-width: 15vw">
             <div class="data-block-title">Заказ</div>
             <div class="field-group">
                 <label class="field-label">Номер заказа</label>
@@ -95,7 +95,7 @@
                 <div class="field-value" th:text="${order.cost}">Стоимость доставки</div>
             </div>
         </div>
-        <div style="display: flex; flex-direction: column; justify-content: space-between">
+        <div style="display: flex; flex-direction: column; justify-content: flex-start">
             <div style="display: flex; flex-direction: row;">
                 <div class="data-block">
                     <div class="data-block-title">Отправитель</div>

@@ -13,12 +13,14 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Map;
+
 @Configuration
 public class RabbitMQConfig {
 
-    static final String topicExchangeName = "urfu-tracing-exchange";
+    static final String createOrderQueueName = "urfu-orders-create";
 
-    static final String queueName = "urfu-orders";
+    static final String updateOrderStatusQueueName = "urfu-orders-update-status";
 
     @Bean
     public MessageConverter jsonMessageConverter(){
@@ -26,33 +28,23 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    Queue queue() {
-        return new Queue(queueName, false);
-    }
-
-    @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(topicExchangeName);
-    }
-
-    @Bean
-    Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with("tracing.order.#");
-    }
-
-    @Bean
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
             MessageListenerAdapter listenerAdapter) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(queueName);
+        container.setQueueNames(createOrderQueueName, updateOrderStatusQueueName);
         container.setMessageListener(listenerAdapter);
         return container;
     }
 
     @Bean
     MessageListenerAdapter listenerAdapter(OrderAmqpProcessor receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
+        MessageListenerAdapter adapter = new MessageListenerAdapter(receiver);
+        adapter.setQueueOrTagToMethodName(Map.ofEntries(
+                Map.entry("urfu-orders-create", "receiveCreateMessage"),
+                Map.entry("urfu-orders-update-status", "receiveUpdateStatusMessage")));
+
+        return adapter;
     }
 
 }

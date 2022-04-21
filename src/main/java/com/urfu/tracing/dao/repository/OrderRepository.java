@@ -31,6 +31,11 @@ public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
             @Param("status") String status,
             @Param("cost") Double cost);
 
+    @Modifying
+    @Query(value = "update orders set status = :newStatus where order_number = :orderNumber", nativeQuery = true)
+    void updateOrderStatus(@Param("orderNumber") Integer orderNumber,
+            @Param("newStatus") String newStatus);
+
     @Query(value =
             "select o.id, o.uuid, o.order_number, o.sender_uuid, o.receiver_uuid, o.office_uuid, o.description, o.status, o.cost " +
                     "from orders o " +

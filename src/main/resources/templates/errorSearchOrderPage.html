@@ -10,7 +10,7 @@
         function redirect(){
             let order = document.getElementById('order-number-input').value;
             let phone = document.getElementById('phone-number-input').value;
-            window.location.href = [[${urfuOfficeHost}]]+`/tracing/trace?orderNumber=${order}&phone=${phone}`;
+            window.location.href = `http://localhost:8080/tracing/trace?orderNumber=${order}&phone=${phone}`;
         }
     </script>
     <style>
@@ -73,19 +73,31 @@
             box-shadow: 0 5px 10px #c2c2c2;
             width: 40vw;
         }
+
+        .error-text{
+            color: #cb3b37;
+            font-weight: 500;
+            font-size: 20px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 <section>
     <h1 id="search-page-title">Отследить заказ</h1>
     <div class="block">
-        <label style="width: 45%;">
-            <input id="order-number-input" placeholder="Номер Заказа" type="text">
-        </label>
-        <label style="width: 30%;">
-            <input id="phone-number-input" type="text" placeholder="Последние 4 цифры телефона">
-        </label>
-        <button id="trace-button" onclick="redirect()">Отследить</button>
+        <div style="display: flex; flex-direction: column; align-items: center">
+            <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+                <label style="width: 45%;">
+                    <input id="order-number-input" placeholder="Номер Заказа" type="text">
+                </label>
+                <label style="width: 30%;">
+                    <input id="phone-number-input" type="text" placeholder="Последние 4 цифры телефона">
+                </label>
+                <button id="trace-button" onclick="redirect()">Отследить</button>
+            </div>
+            <div class="error-text">Неправильный номер заказа или цифры телефона</div>
+        </div>
     </div>
 </section>
 </body>

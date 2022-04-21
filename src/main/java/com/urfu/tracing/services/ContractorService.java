@@ -16,8 +16,7 @@ public class ContractorService {
     private final ContractorDao dao;
 
     public void saveContractor(@NonNull ContractorEntity contractorEntity) {
-        dao.saveContractor(contractorEntity.getUuid(), contractorEntity.getFirstName(),
-                contractorEntity.getSecondName(), contractorEntity.getNumberPhone());
+        dao.saveContractor(contractorEntity);
     }
 
     @Nullable
